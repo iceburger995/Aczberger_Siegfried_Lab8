@@ -10,7 +10,7 @@ using Aczberger_Siegfried_Lab8.Models;
 
 namespace Aczberger_Siegfried_Lab8.Pages.Books
 {
-    public class CreateModel : PageModel
+    public class CreateModel : BookCategoriesPageModel
     {
         private readonly Aczberger_Siegfried_Lab8.Data.Aczberger_Siegfried_Lab8Context _context;
 
@@ -22,6 +22,11 @@ namespace Aczberger_Siegfried_Lab8.Pages.Books
         public IActionResult OnGet()
         {
             ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+
+            var book = new Book();
+            book.BookCategories = new List<BookCategory>();
+            PopulateAssignedCategoryData(_context, book);
+
             return Page();
         }
 
